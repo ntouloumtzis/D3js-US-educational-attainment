@@ -1,39 +1,97 @@
-chart = {
-  const arcs = pie(data);
+var svg = d3.select("svg"), margin = 200,
+   width = svg.attr("width") - margin,
+   height = svg.attr("height") - margin;
 
-  const svg = d3.select(DOM.svg(width, height))
-      .attr("text-anchor", "middle")
-      .style("font", "12px sans-serif");
+svg.append("text")
+   .attr("transform", "translate(100,0)")
+   .attr("x", 50)
+   .attr("y", 50)
+   .attr("font-size", "20px")
+   .attr("class", "title")
+   .text("Population bar chart")
 
-  const g = svg.append("g")
-      .attr("transform", `translate(${width / 2},${height / 2})`);
-  
-  g.selectAll("path")
-    .data(arcs)
-    .enter().append("path")
-      .attr("fill", d => color(d.data.name))
-      .attr("stroke", "white")
-      .attr("d", arc)
-    .append("title")
-      .text(d => `${d.data.name}: ${d.data.value.toLocaleString()}`);
+var x = d3.scaleBand().range([0, width]).padding(0.4),
+   y = d3.scaleLinear()
+      .range([height, 0]);
+   var g = svg.append("g")
+      .attr("transform", "translate(" + 100 + "," + 100 + ")");
 
-  const text = g.selectAll("text")
-    .data(arcs)
-    .enter().append("text")
-      .attr("transform", d => `translate(${arcLabel.centroid(d)})`)
-      .attr("dy", "0.35em");
-  
-  text.append("tspan")
-      .attr("x", 0)
-      .attr("y", "-0.7em")
-      .style("font-weight", "bold")
-      .text(d => d.data.name);
-  
-  text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
-      .attr("x", 0)
-      .attr("y", "0.7em")
-      .attr("fill-opacity", 0.7)
-      .text(d => d.data.value.toLocaleString());
+d3.tsv('assets/data/species.tsv', function(error, data) {
+        if (error) throw error;
+}
 
-  return svg.node();
+x.domain(data.map(function(d) { return d.year; }));
+y.domain([0, d3.max(data, function(d) { return d.population; })]);
+
+g.append("g")
+   .attr("transform", "translate(0," + height + ")")
+   .call(d3.axisBottom(x)).append("text")
+   .attr("y", height - 250).attr("x", width - 100)
+   .attr("text-anchor", "end").attr("font-size", "18px")
+   .attr("stroke", "blue").text("year");
+
+g.append("g")
+   .append("text").attr("transform", "rotate(-90)")
+   .attr("y", 6).attr("dy", "-5.1em")
+   .attr("text-anchor", "end").attr("font-size", "18px")
+   .attr("stroke", "blue").text("population");
+
+g.append("g")
+   .attr("transform", "translate(0, 0)")
+   .call(d3.axisLeft(y))
+
+g.selectAll(".bar")
+   .data(data).enter()
+   .append("rect")
+   .attr("class", "bar")
+   .on("mouseover", onMouseOver) 
+   .on("mouseout", onMouseOut)
+   .attr("x", function(d) { return x(d.year); })
+   .attr("y", function(d) { return y(d.population); })
+   .attr("width", x.bandwidth())
+   .transition()
+   .ease(d3.easeLinear)
+   .duration(200)
+   .delay(function (d, i) {
+      return i * 25;
+   })
+   .attr("height", function(d) { return height - y(d.population); });
+});
+
+.delay(function (d, i) {
+   return i * 25;
+})
+
+function onMouseOver(d, i) {
+   d3.select(this)
+      .attr('class', 'highlight');
+   d3.select(this)
+      .transition()
+      .duration(200)
+      .attr('width', x.bandwidth() + 5)
+      .attr("y", function(d) { return y(d.population) - 10; })
+      .attr("height", function(d) { return height - y(d.population) + 10; });
+   g.append("text")
+      .attr('class', 'val') 
+   
+   .attr('x', function() {
+      return x(d.year);
+   })
+   
+   .attr('y', function() {
+      return y(d.value) - 10;
+   })
+}
+
+function onMouseOut(d, i) {
+   d3.select(this).attr('class', 'bar');
+   
+   d3.select(this)
+      .transition()     
+      .duration(400).attr('width', x.bandwidth())
+      .attr("y", function(d) { return y(d.population); })
+      .attr("height", function(d) { return height - y(d.population); });
+   
+   d3.selectAll('.val')
+      .remove()
 }
