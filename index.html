@@ -25,8 +25,8 @@
 				<ul class="navbar-nav ml-auto">
    					<li class="nav-item active"><a class="nav-link" href="#top" onmouseover="playclip();" >Top</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#national" onmouseover="playclip();" onclick="FunctionGraphOne()" >National</a></li>
-					<li class="nav-item active"><a class="nav-link" href="#regional" onmouseover="playclip();" >Regional</a></li>
-					<li class="nav-item active"><a class="nav-link" href="#state" onmouseover="playclip();" >State-Level</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#regional" onmouseover="playclip();" onclick="FunctionGraphTwo()" >Regional</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#state" onmouseover="playclip();" onclick="FunctionGraphThree()" >State-Level</a></li>
 				</ul>
 			</div>
 		</div>
@@ -123,6 +123,33 @@ function FunctionGraphOne() {
         x.style.display = "none";
     }
 }
+
+function FunctionGraphTwo() {
+    var x = document.getElementById("GraphOne");
+    var y = document.getElementById("GraphTwo");
+    var w = document.getElementById("GraphThree");
+    if (y.style.display === "none") {
+        x.style.display = "none";
+	y.style.display = "block";
+	w.style.display = "none";
+    } else {
+        y.style.display = "none";
+    }
+}
+
+function FunctionGraphThree() {
+    var x = document.getElementById("GraphOne");
+    var y = document.getElementById("GraphTwo");
+    var w = document.getElementById("GraphThree");
+    if (w.style.display === "none") {
+        x.style.display = "none";
+	y.style.display = "none";
+	w.style.display = "block";
+    } else {
+        w.style.display = "none";
+    }
+}
+
 </script>
 
 </body>
