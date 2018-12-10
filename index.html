@@ -37,12 +37,13 @@
 
 	<h1 class="title">Educational Attainment in the United States</h1>
 	<p><br></p>
-<div id="myDIV">
+<div id="GraphOne">
     <h2 class="subtitle"> Nation-Wide Education Level of Population in Schooling</h2>
 <svg id="pie-chart"  width="960" height="450"></svg><a name="regional"></a>
 	<p><br><br><br></p></div>
     <h2 class="subtitle">Educational Attainment: Region-level Breakdown of University Students</h2>
 
+<div id="GraphTwo">
     <form id="tree-form">
         <div class="radio-toolbar">
             <input type="radio" id="mode1" name="treeSum" value="number" checked>
@@ -58,7 +59,8 @@
 	<p></p>
     <div id="chart"></div>
 	<a name="state"></a>
-		<p><br><br></p>
+	<p><br><br></p></div>
+<div id="GraphThree">
     <h2 class="subtitle">Education Level of Population in Schooling: State-level Breakdown</h2>
 
     <form id="stack-form">
@@ -71,7 +73,7 @@
     </form>
     <div>
         <svg id="stacked-bar-chart"></svg>
-	</div>
+	</div></div>
 
     
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -109,10 +111,14 @@ $(document).ready(function(){
 </script>
 
 <script>
-function myFunction() {
-    var x = document.getElementById("myDIV");
+function FunctionGraphOne() {
+    var x = document.getElementById("GraphOne");
+    var y = document.getElementById("GraphTwo");
+    var w = document.getElementById("GraphThree");
     if (x.style.display === "none") {
         x.style.display = "block";
+	y.style.display = "none";
+	w.style.display = "none";
     } else {
         x.style.display = "none";
     }
