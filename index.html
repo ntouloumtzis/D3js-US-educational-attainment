@@ -13,52 +13,34 @@
     <link href="assets/stylesheets/style.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
-
-
 </head>
  <header>
+ 
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+   					<li class="nav-item active"><a class="nav-link" href="#top" onmouseover="playclip();" >Top</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#national" onmouseover="playclip();" onclick="myFunction()" >National</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#regional" onmouseover="playclip();" >Regional</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#state" onmouseover="playclip();" >State-Level</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
 
-
-       
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-
-<div class="container-fluid">
-
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-
-	<span class="navbar-toggler-icon"></span>
-	
-</button>
-
-<div class="collapse navbar-collapse" id="navbarResponsive">
-
-    <ul class="navbar-nav ml-auto">
-   
-<li class="nav-item active"><a class="nav-link" href="#top" onmouseover="playclip();" >Top</a></li>
-
-<li class="nav-item active"><a class="nav-link" href="#national" onmouseover="playclip();" >National</a></li>
-
-<li class="nav-item active"><a class="nav-link" href="#regional" onmouseover="playclip();" >Regional</a></li>
-
-<li class="nav-item active"><a class="nav-link" href="#state" onmouseover="playclip();" >State-Level</a></li>
-
-    </ul>
-	
-</div>
-	       
-</div>
-        
-</nav>
-	</header>
 <body>
 
 	<h1 class="title">Educational Attainment in the United States</h1>
 	<p><br></p>
     <h2 class="subtitle"> Nation-Wide Education Level of Population in Schooling</h2>
-
+<div id="myDIV">
 <svg id="pie-chart"  width="960" height="450"></svg><a name="regional"></a>
-	  <p><br><br><br></p>
+	<p><br><br><br></p></div>
     <h2 class="subtitle">Educational Attainment: Region-level Breakdown of University Students</h2>
 
     <form id="tree-form">
@@ -126,6 +108,16 @@ $(document).ready(function(){
 });
 </script>
 
+<script>
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
 
 </body>
 
