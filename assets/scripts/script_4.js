@@ -1,124 +1,105 @@
-var data = {
-  labels: [
-    'resilience', 'maintainability', 'accessibility',
-    'uptime', 'functionality', 'impact'
-  ],
-  series: [
-    {
-      label: '2012',
-      values: [4, 8, 15, 16, 23, 42]
-    },
-    {
-      label: '2013',
-      values: [12, 43, 22, 11, 73, 25]
-    },
-    {
-      label: '2014',
-      values: [31, 28, 14, 8, 15, 21]
-    },]
-};
+var svg = d3.select("svg"),
+         margin = 200, width = svg.attr("width") - margin,
+         height = svg.attr("height") - margin;
+         
+         svg.append("text")
+            .attr("transform", "translate(100,0)")
+            .attr("x", 50).attr("y", 50)
+            .attr("font-size", "20px")
+            .attr("class", "title")
+            .text("Population bar chart")
+            
+         var x = d3.scaleBand().range([0, width]).padding(0.4),
+         y = d3.scaleLinear().range([height, 0]);
+            
+         var g = svg.append("g")
+            .attr("transform", "translate(" + 100 + "," + 100 + ")");
 
-var chartWidth       = 300,
-    barHeight        = 20,
-    groupHeight      = barHeight * data.series.length,
-    gapBetweenGroups = 10,
-    spaceForLabels   = 150,
-    spaceForLegend   = 150;
+         d3.csv("data.csv", function(error, data) {
+            if (error) {
+               throw error;
+            }
+               
+            x.domain(data.map(function(d) { return d.year; }));
+            y.domain([0, d3.max(data, function(d) { return d.population; })]);
+                     
+            g.append("g")
+               .attr("transform", "translate(0," + height + ")")
+               .call(d3.axisBottom(x))
+               .append("text")
+               .attr("y", height - 250)
+               .attr("x", width - 100)
+               .attr("text-anchor", "end")
+               .attr("font-size", "18px")
+               .attr("stroke", "blue").text("year");
+               
+            g.append("g")
+               .append("text")
+               .attr("transform", "rotate(-90)")
+               .attr("y", 6)
+               .attr("dy", "-5.1em")
+               .attr("text-anchor", "end")
+               .attr("font-size", "18px")
+               .attr("stroke", "blue")
+               .text("population");
+                         
+            g.append("g")
+               .attr("transform", "translate(0, 0)")
+               .call(d3.axisLeft(y))
 
-// Zip the series data together (first values, second values, etc.)
-var zippedData = [];
-for (var i=0; i<data.labels.length; i++) {
-  for (var j=0; j<data.series.length; j++) {
-    zippedData.push(data.series[j].values[i]);
-  }
-}
-
-// Color scale
-var color = d3.scale.category20();
-var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
-
-var x = d3.scale.linear()
-    .domain([0, d3.max(zippedData)])
-    .range([0, chartWidth]);
-
-var y = d3.scale.linear()
-    .range([chartHeight + gapBetweenGroups, 0]);
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .tickFormat('')
-    .tickSize(0)
-    .orient("left");
-
-// Specify the chart area and dimensions
-var chart = d3.select(".chart")
-    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
-    .attr("height", chartHeight);
-
-// Create bars
-var bar = chart.selectAll("g")
-    .data(zippedData)
-    .enter().append("g")
-    .attr("transform", function(d, i) {
-      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
-    });
-
-// Create rectangles of the correct width
-bar.append("rect")
-    .attr("fill", function(d,i) { return color(i % data.series.length); })
-    .attr("class", "bar")
-    .attr("width", x)
-    .attr("height", barHeight - 1);
-
-// Add text label in bar
-bar.append("text")
-    .attr("x", function(d) { return x(d) - 3; })
-    .attr("y", barHeight / 2)
-    .attr("fill", "red")
-    .attr("dy", ".35em")
-    .text(function(d) { return d; });
-
-// Draw labels
-bar.append("text")
-    .attr("class", "label")
-    .attr("x", function(d) { return - 10; })
-    .attr("y", groupHeight / 2)
-    .attr("dy", ".35em")
-    .text(function(d,i) {
-      if (i % data.series.length === 0)
-        return data.labels[Math.floor(i/data.series.length)];
-      else
-        return ""});
-
-chart.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
-      .call(yAxis);
-
-// Draw legend
-var legendRectSize = 18,
-    legendSpacing  = 4;
-
-var legend = chart.selectAll('.legend')
-    .data(data.series)
-    .enter()
-    .append('g')
-    .attr('transform', function (d, i) {
-        var height = legendRectSize + legendSpacing;
-        var offset = -gapBetweenGroups/2;
-        var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
-        var vert = i * height - offset;
-        return 'translate(' + horz + ',' + vert + ')';
-    });
-
-legend.append('rect')
-    .attr('width', legendRectSize)
-    .attr('height', legendRectSize)
-    .style('fill', function (d, i) { return color(i); })
-    .style('stroke', function (d, i) { return color(i); });
-
-legend.append('text')
-    .attr('class', 'legend')
-    .attr('x', legendRectSize + legendSpacing)
-    .attr('y', legendRectSize - legendSpacing)
-    .text(function (d) { return d.label; });
+            g.selectAll(".bar")
+               .data(data)
+               .enter()
+               .append("rect")
+               .attr("class", "bar")
+               .on("mouseover", onMouseOver) 
+               .on("mouseout", onMouseOut)   
+               .attr("x", function(d) { return x(d.year); })
+               .attr("y", function(d) { return y(d.population); })
+               .attr("width", x.bandwidth()).transition()
+               .ease(d3.easeLinear).duration(200)
+               .delay(function (d, i) {
+                  return i * 25;
+               })
+                  
+            .attr("height", function(d) { return height - y(d.population); });
+         });
+          
+          
+         function onMouseOver(d, i) {
+            d3.select(this)
+            .attr('class', 'highlight');
+               
+            d3.select(this)
+               .transition()     
+               .duration(200)
+               .attr('width', x.bandwidth() + 5)
+               .attr("y", function(d) { return y(d.population) - 10; })
+               .attr("height", function(d) { return height - y(d.population) + 10; });
+              
+            g.append("text")
+               .attr('class', 'val')
+               .attr('x', function() {
+                  return x(d.year);
+               })
+               
+            .attr('y', function() {
+               return y(d.value) - 10;
+            })
+         }
+          
+         function onMouseOut(d, i) {
+             
+            d3.select(this)
+               .attr('class', 'bar');
+            
+            d3.select(this)
+               .transition()     
+               .duration(200)
+               .attr('width', x.bandwidth())
+               .attr("y", function(d) { return y(d.population); })
+               .attr("height", function(d) { return height - y(d.population); });
+            
+            d3.selectAll('.val')
+               .remove()
+         }
