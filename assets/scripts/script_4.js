@@ -1,97 +1,50 @@
-var svg = d3.select("svg"), margin = 200,
-   width = svg.attr("width") - margin,
-   height = svg.attr("height") - margin;
+var width = 960,
+    height = 500,
+    radius = Math.min(width, height) / 2;
 
-svg.append("text")
-   .attr("transform", "translate(100,0)")
-   .attr("x", 50)
-   .attr("y", 50)
-   .attr("font-size", "20px")
-   .attr("class", "title")
-   .text("Population bar chart")
+var color = d3.scale.category20();
 
-var x = d3.scaleBand().range([0, width]).padding(0.4),
-   y = d3.scaleLinear()
-      .range([height, 0]);
-   var g = svg.append("g")
-      .attr("transform", "translate(" + 100 + "," + 100 + ")");
+var pie = d3.layout.pie()
+    .value(function(d) { return d.apples; })
+    .sort(null);
 
-d3.tsv('assets/data/species.tsv', function(error, data) {
-        if (error) throw error;
-}
+var arc = d3.svg.arc()
+    .innerRadius(radius - 100)
+    .outerRadius(radius - 20);
 
-x.domain(data.map(function(d) { return d.year; }));
-y.domain([0, d3.max(data, function(d) { return d.population; })]);
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-g.append("g")
-   .attr("transform", "translate(0," + height + ")")
-   .call(d3.axisBottom(x)).append("text")
-   .attr("y", height - 250).attr("x", width - 100)
-   .attr("text-anchor", "end").attr("font-size", "18px")
-   .attr("stroke", "blue").text("year");
+d3.tsv("assets/data/species.tsv", type, function(error, data) {
+  var path = svg.datum(data).selectAll("path")
+      .data(pie)
+    .enter().append("path")
+      .attr("fill", function(d, i) { return color(i); })
+      .attr("d", arc);
 
-g.append("g")
-   .append("text").attr("transform", "rotate(-90)")
-   .attr("y", 6).attr("dy", "-5.1em")
-   .attr("text-anchor", "end").attr("font-size", "18px")
-   .attr("stroke", "blue").text("population");
+  d3.selectAll("input")
+      .on("change", change);
 
-g.append("g")
-   .attr("transform", "translate(0, 0)")
-   .call(d3.axisLeft(y))
+  var timeout = setTimeout(function() {
+    d3.select("input[value=\"oranges\"]").property("checked", true).each(change);
+  }, 2000);
 
-g.selectAll(".bar")
-   .data(data).enter()
-   .append("rect")
-   .attr("class", "bar")
-   .on("mouseover", onMouseOver) 
-   .on("mouseout", onMouseOut)
-   .attr("x", function(d) { return x(d.year); })
-   .attr("y", function(d) { return y(d.population); })
-   .attr("width", x.bandwidth())
-   .transition()
-   .ease(d3.easeLinear)
-   .duration(200)
-   .delay(function (d, i) {
-      return i * 25;
-   })
-   .attr("height", function(d) { return height - y(d.population); });
+  function change() {
+    var value = this.value;
+    clearTimeout(timeout);
+    pie.value(function(d) { return d[value]; }); // change the value function
+    path = path.data(pie); // compute the new angles
+    path.attr("d", arc); // redraw the arcs
+  }
 });
 
-.delay(function (d, i) {
-   return i * 25;
-})
-
-function onMouseOver(d, i) {
-   d3.select(this)
-      .attr('class', 'highlight');
-   d3.select(this)
-      .transition()
-      .duration(200)
-      .attr('width', x.bandwidth() + 5)
-      .attr("y", function(d) { return y(d.population) - 10; })
-      .attr("height", function(d) { return height - y(d.population) + 10; });
-   g.append("text")
-      .attr('class', 'val') 
-   
-   .attr('x', function() {
-      return x(d.year);
-   })
-   
-   .attr('y', function() {
-      return y(d.value) - 10;
-   })
+function type(d) {
+  d.apples = +d.apples;
+  d.oranges = +d.oranges;
+  return d;
 }
 
-function onMouseOut(d, i) {
-   d3.select(this).attr('class', 'bar');
-   
-   d3.select(this)
-      .transition()     
-      .duration(400).attr('width', x.bandwidth())
-      .attr("y", function(d) { return y(d.population); })
-      .attr("height", function(d) { return height - y(d.population); });
-   
-   d3.selectAll('.val')
-      .remove()
-}
+</script>
