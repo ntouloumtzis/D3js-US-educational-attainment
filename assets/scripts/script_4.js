@@ -46,5 +46,3 @@ function type(d) {
   d.oranges = +d.oranges;
   return d;
 }
-
-</script>
