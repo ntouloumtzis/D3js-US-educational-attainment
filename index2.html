@@ -12,8 +12,46 @@
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="assets/stylesheets/style.css" rel="stylesheet"/>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
 
+<style>
+
+/*
+.chart rect {
+  fill: steelblue;
+}
+*/
+.chart .legend {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+.chart .label {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: end;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+</style>
 
 </head>
  <header>
@@ -39,7 +77,8 @@
 
 <div align="center" class="container">
 <h2 class="subtitle">Μόνιμος Πληθυσμός κατά Φύλο και Περιφέρεια</h2>
-
+<svg class="chart"></svg>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 </div>
 
 </body>
