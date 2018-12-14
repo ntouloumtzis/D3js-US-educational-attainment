@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="assets/stylesheets/style.css" rel="stylesheet"/>
-
 <style>
 
 .chart .legend {
@@ -45,8 +44,8 @@
   shape-rendering: crispEdges;
 }
 
-</style>
 
+</style>
 </head>
  <header>
  
@@ -71,9 +70,10 @@
 
 
 <h2 class="subtitle">Μόνιμος Πληθυσμός κατά Φύλο και Περιφέρεια</h2>
+<svg class="chart"></svg>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-	<svg class="chart"></svg>
 <script>
+
 var data = {
   labels: [
     'resilience', 'maintainability', 'accessibility',
@@ -198,7 +198,8 @@ legend.append('text')
     .attr('x', legendRectSize + legendSpacing)
     .attr('y', legendRectSize - legendSpacing)
     .text(function (d) { return d.label; });
-	</script>
+
+</script>
 
 </body>
 </html>
