@@ -1,47 +1,72 @@
-(function (d3) {
-  'use strict';
+//Regular pie chart example
+nv.addGraph(function() {
+  var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(true);
 
-  const svg = d3.select('svg');
+    d3.select("#chart svg")
+        .datum(exampleData())
+        .transition().duration(350)
+        .call(chart);
 
-  const width = +svg.attr('width');
-  const height = +svg.attr('height');
+  return chart;
+});
 
-  const render = data => {
-    const xValue = d => d.percent;
-    const yValue = d => d.date;
-    const margin = { top: 20, right: 40, bottom: 20, left: 100 };
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-    
-    const xScale = d3.scaleLinear()
-      .domain([0, d3.max(data, xValue)])
-      .range([0, innerWidth]);
-    
-    const yScale = d3.scaleBand()
-      .domain(data.map(yValue))
-      .range([0, innerHeight])
-      .padding(0.1);
-    
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-    
-    g.append('g').call(d3.axisLeft(yScale));
-    g.append('g').call(d3.axisBottom(xScale))
-      .attr('transform', `translate(0,${innerHeight})`);
-    
-    g.selectAll('rect').data(data)
-      .enter().append('rect')
-        .attr('y', d => yScale(yValue(d)))
-        .attr('width', d => xScale(xValue(d)))
-        .attr('height', yScale.bandwidth());
-  };
+//Donut chart example
+nv.addGraph(function() {
+  var chart = nv.models.pieChart()
+      .x(function(d) { return d.label })
+      .y(function(d) { return d.value })
+      .showLabels(true)     //Display pie labels
+      .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
+      .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
+      .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
+      .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+      ;
 
-  d3.csv('assets/data/pososta_anergias.csv').then(data => {
-    data.forEach(d => {
-      d.percent = (d.percent/5210205)*100;
-    });
-    render(data);
-  });
+    d3.select("#chart2 svg")
+        .datum(exampleData())
+        .transition().duration(350)
+        .call(chart);
 
-}(d3));
+  return chart;
+});
 
+//Pie chart example data. Note how there is only a single array of key-value pairs.
+function exampleData() {
+  return  [
+      { 
+        "label": "One",
+        "value" : 29.765957771107
+      } , 
+      { 
+        "label": "Two",
+        "value" : 0
+      } , 
+      { 
+        "label": "Three",
+        "value" : 32.807804682612
+      } , 
+      { 
+        "label": "Four",
+        "value" : 196.45946739256
+      } , 
+      { 
+        "label": "Five",
+        "value" : 0.19434030906893
+      } , 
+      { 
+        "label": "Six",
+        "value" : 98.079782601442
+      } , 
+      { 
+        "label": "Seven",
+        "value" : 13.925743130903
+      } , 
+      { 
+        "label": "Eight",
+        "value" : 5.1387322875705
+      }
+    ];
+}
