@@ -67,11 +67,11 @@
 
 <script>
 $(document).ready(function(){
-    $("h1, h2, label").mouseenter(function(){
+    $("h2, label").mouseenter(function(){
 		responsiveVoice.cancel(); 
   		responsiveVoice.speak($(this).text(), 'Greek Male');
 });
-    $("h1, h2, label").mouseleave(function(){
+    $("h2, label").mouseleave(function(){
         responsiveVoice.cancel();
     	});
 });
