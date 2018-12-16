@@ -12,7 +12,7 @@
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
+<header>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<div class="container-fluid">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -25,7 +25,9 @@
 			</div>
 		</div>
 	</nav>
+</header>
 </head>
+<body>
 <h2 class="subtitle"> Ετήσια μεταβολή (%) Δεικτών Όγκου στο Λιανικό Εμπόριο Σεπτεμβρίου 2018</h2>
 <div align="center">
 <svg width="960" height="500"></svg></div>
@@ -96,3 +98,23 @@ function stackMax(serie) {
 }
 
 </script>
+
+<script>
+$(document).ready(function(){
+    $("h2").mouseenter(function(){
+		responsiveVoice.cancel(); 
+  		responsiveVoice.speak($(this).text(), 'Greek Male');
+});
+    $("h2").mouseleave(function(){
+        responsiveVoice.cancel();
+    	});
+});
+</script>
+
+</body>
+
+<audio>
+<source src="mousehover-sound.mp3"></source>
+<source src="mousehover-sound.ogg"></source>
+</audio>
+	<div id="sounddiv"><bgsound id="sound"></div>
