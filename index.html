@@ -23,11 +23,11 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-   					<li class="nav-item active"><a class="nav-link" href="#top" onmouseover="playclip();" onclick="FunctionAllGraphs()" >All</a></li>
+   					<li class="nav-item active"><a class="nav-link" href="#top" onmouseover="playclip();" >Top</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#national" onmouseover="playclip();" onclick="FunctionGraphOne()" >National</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#regional" onmouseover="playclip();" onclick="FunctionGraphTwo()" >Regional</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#state" onmouseover="playclip();" onclick="FunctionGraphThree()" >State-Level</a></li>
-     					<li class="nav-item active"><a class="nav-link" href="index2.html" onmouseover="playclip();" >Additional-Charts (3)</a></li>                                                 
+     					<li class="nav-item active"><a class="nav-link" href="index2.html" onmouseover="playclip();" >Additional-Charts</a></li>                                                 
 				</ul>
 			</div>
 		</div>
@@ -148,17 +148,6 @@ function FunctionGraphThree() {
 	w.style.display = "block";
     } else {
         w.style.display = "none";
-    }
-}
-
-function FunctionAllGraphs() {
-    var x = document.getElementById("GraphOne");
-    var y = document.getElementById("GraphTwo");
-    var w = document.getElementById("GraphThree");
-    if (x.style.display === "none" || y.style.display === "none" || w.style.display === "none" ) {
-	x.style.display = "block"
-	y.style.display = "block"
-	w.style.display = "block"
     }
 }
 	
