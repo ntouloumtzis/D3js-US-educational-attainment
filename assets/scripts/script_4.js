@@ -22,36 +22,28 @@ nv.addGraph(function() {
 function exampleData() {
   return  [
       { 
-        "label": "One",
-        "value" : 29.765957771107
+        "label": "Σεπτ. '13",
+        "value" : 27.8
       } , 
       { 
-        "label": "Two",
-        "value" : 0
+        "label": "Σεπτ. '14",
+        "value" : 26.0
       } , 
       { 
-        "label": "Three",
-        "value" : 32.807804682612
+        "label": "Σεπτ. '15",
+        "value" : 24.7
       } , 
       { 
-        "label": "Four",
-        "value" : 196.45946739256
+        "label": "Σεπτ '16",
+        "value" : 23.1
       } , 
       { 
-        "label": "Five",
-        "value" : 0.19434030906893
+        "label": "Σεπτ '17",
+        "value" : 20.8
       } , 
       { 
-        "label": "Six",
-        "value" : 98.079782601442
-      } , 
-      { 
-        "label": "Seven",
-        "value" : 13.925743130903
-      } , 
-      { 
-        "label": "Eight",
-        "value" : 5.1387322875705
+        "label": "Σεπτ '18",
+        "value" : 18.6
       }
     ];
 }
