@@ -1,36 +1,24 @@
 var data = [
-  {month: "Είδη Διατροφής", apples: 5.6},
-  {month: "", apples: 0},
-  {month: "Kαύσιμα/λιπαντικά αυτοκινήτων", apples: 1.0},
-  {month: " ", apples: 0},
-  {month: "Λοιπά καταστήματα", apples:  1.0},
-  {month: "  ", apples: 0},
-  {month: "Μεγάλα καταστήματα τροφίμων", apples:  5.9},
-  {month: "   ", apples: 0},
-  {month: "Πολυκαταστήματα", dates: -5.2},
-  {month: "Τρόφιμα/Ποτά/Καπνός", apples: 3.9},
-  {month: "Φαρμακευτικά/Καλλυντικά", dates:  -1.5},
-  {month: "Ένδυση – Υπόδηση", apples:  4.7},
-  {month: "Έπιπλα/Ηλεκτρικά είδη/Οικιακός εξοπλισμός", apples:  1.1},
-  {month: "Βιβλία/Χαρτικά/Λοιπά είδη", apples:  7.4},
-  {month: "Γενικός Δείκτης", apples:  3.3},
-  {month: "Γενικός Δείκτης, εκτός καυσίμων και λιπαντικών αυτοκινήτων", apples:  3.4}
+  {month: "Q1-2016", apples: 3840, bananas: 1920, cherries: -1960, dates: -400},
+  {month: "Q2-2016", apples: 1600, bananas: 1440, cherries: -960, dates: -400},
+  {month: "Q3-2016", apples:  640, bananas:  960, cherries: -640, dates: -600},
+  {month: "Q4-2016", apples:  320, bananas:  480, cherries: -640, dates: -400}
 ];
 
 var series = d3.stack()
-    .keys(["apples","dates"])
+    .keys(["apples", "bananas", "cherries", "dates"])
     .offset(d3.stackOffsetDiverging)
     (data);
 
 var svg = d3.select("svg"),
-    margin = {top: 50, right: 30, bottom: 50, left: 30},
+    margin = {top: 20, right: 30, bottom: 30, left: 60},
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
 var x = d3.scaleBand()
     .domain(data.map(function(d) { return d.month; }))
     .rangeRound([margin.left, width - margin.right])
-    .padding(0.4);
+    .padding(0.1);
 
 var y = d3.scaleLinear()
     .domain([d3.min(series, stackMin), d3.max(series, stackMax)])
@@ -66,4 +54,3 @@ function stackMin(serie) {
 function stackMax(serie) {
   return d3.max(serie, function(d) { return d[1]; });
 }
-
