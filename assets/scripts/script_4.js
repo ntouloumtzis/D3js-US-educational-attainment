@@ -22,6 +22,14 @@ nv.addGraph(function() {
 function exampleData() {
   return  [
       { 
+        "label": "Σεπτ '11",
+        "value" : 19.1
+      } , 
+      { 
+        "label": "Σεπτ '12",
+        "value" : 26.2
+      } ,
+      { 
         "label": "Σεπτ. '13",
         "value" : 27.8
       } , 
