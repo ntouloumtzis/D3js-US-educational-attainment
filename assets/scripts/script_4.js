@@ -23,7 +23,7 @@ function exampleData() {
   return  [
       { 
         "label": "Αθηναίων",
-        "value" : 608.182
+        "value" : 608182
       } ,
       { 
         "label": "Θεσσαλονίκης",
