@@ -22,35 +22,63 @@ nv.addGraph(function() {
 function exampleData() {
   return  [
       { 
-        "label": "Σεπτ '11",
+        "label": "2004",
+        "value" : 10.4
+      } ,
+      { 
+        "label": "2005",
+        "value" : 10.1
+      } ,
+      { 
+        "label": "2006",
+        "value" : 8.6
+      } ,
+      { 
+        "label": "2007",
+        "value" : 8.4
+      } ,
+      { 
+        "label": "2008",
+        "value" : 7.7
+      } ,
+      { 
+        "label": "2009",
+        "value" : 10.0
+      } ,
+      { 
+        "label": "2010",
+        "value" : 13.4
+      } ,
+      { 
+        "label": "2011",
         "value" : 19.1
       } , 
       { 
-        "label": "Σεπτ '12",
+        "label": "2012",
         "value" : 26.2
       } ,
       { 
-        "label": "Σεπτ. '13",
+        "label": "2013",
         "value" : 27.8
       } , 
       { 
-        "label": "Σεπτ. '14",
+        "label": "2014",
         "value" : 26.0
       } , 
       { 
-        "label": "Σεπτ. '15",
+        "label": "2015",
         "value" : 24.7
       } , 
       { 
-        "label": "Σεπτ '16",
+        "label": "2016",
         "value" : 23.1
       } , 
       { 
-        "label": "Σεπτ '17",
+        "label": "2017",
         "value" : 20.8
       } , 
       { 
-        "label": "Σεπτ '18",
+        "label": "2018",
         "value" : 18.6
       }
     ];
