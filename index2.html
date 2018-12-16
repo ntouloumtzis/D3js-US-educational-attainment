@@ -64,5 +64,17 @@
 <script  src="assets/scripts/script_6.js"></script>
 <p><br></p>
 
+<script>
+$(document).ready(function(){
+    $("h1, h2, label").mouseenter(function(){
+		responsiveVoice.cancel(); 
+  		responsiveVoice.speak($(this).text(), 'UK English Male');
+});
+    $("h1, h2, label").mouseleave(function(){
+        responsiveVoice.cancel();
+    	});
+});
+</script>
+
 </body>
 </html>
