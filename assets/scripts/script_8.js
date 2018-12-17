@@ -8,7 +8,7 @@ nv.addGraph(function() {
       .transitionDuration(350)
       ;
 
-  d3.select('#chart svg')
+  d3.select('#chart3 svg')
       .datum(exampleData())
       .call(chart);
 
