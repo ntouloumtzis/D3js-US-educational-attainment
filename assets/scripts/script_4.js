@@ -13,9 +13,9 @@ nv.addGraph(function() {
     d3.select("#chart2 svg")
         .datum(exampleData())
         .transition().duration(350)
-        .call(chart2);
+        .call(chart);
 
-  return chart2;
+  return chart;
 });
 
 //Pie chart example data. Note how there is only a single array of key-value pairs.
