@@ -1,8 +1,3 @@
-var margin = {top: 20, right: 40, bottom: 30, left: 20},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    barWidth = Math.floor(width / 19) - 1;
-
 nv.addGraph(function() {
   var chart = nv.models.discreteBarChart()
       .x(function(d) { return d.label })    //Specify the data accessors.
@@ -29,54 +24,39 @@ function exampleData() {
       key: "Cumulative Return",
       values: [
         { 
-          "label" : "Καταστήματα ειδών διατροφής" ,
-          "value" : 5.6
+          "label" : "A Label" ,
+          "value" : -29.765957771107
         } , 
         { 
-          "label" : "Kαύσιμα και λιπαντικά αυτοκινήτων" , 
-          "value" : 1.0
+          "label" : "B Label" , 
+          "value" : 0
         } , 
         { 
-          "label" : "Λοιπά καταστήματα" , 
-          "value" : 1.0
+          "label" : "C Label" , 
+          "value" : 32.807804682612
         } , 
         { 
-          "label" : "Πολυκαταστήματα" , 
-          "value" : -5.2
+          "label" : "D Label" , 
+          "value" : 196.45946739256
         } , 
         { 
-          "label" : "Μεγάλα καταστήματα τροφίμων" ,
-          "value" : 5.9
+          "label" : "E Label" ,
+          "value" : 0.19434030906893
         } , 
         { 
-          "label" : "Τρόφιμα – Ποτά – Καπνός" , 
-          "value" : 3.9
+          "label" : "F Label" , 
+          "value" : -98.079782601442
         } , 
         { 
-          "label" : "Φαρμακευτικά – Καλλυντικά" , 
-          "value" : -1.5
+          "label" : "G Label" , 
+          "value" : -13.925743130903
         } , 
         { 
-          "label" : "Ένδυση – Υπόδηση" , 
-          "value" : 4.7
-        } ,
-        { 
-          "label" : "Έπιπλα – Ηλεκτρικά είδη – Οικιακός εξοπλισμός" , 
-          "value" : 1.1
-        } , 
-        { 
-          "label" : "Βιβλία – Χαρτικά – Λοιπά είδη" , 
-          "value" : 7.4
-        } ,
-        { 
-          "label" : "Γενικός Δείκτης" , 
-          "value" : 3.3
-        } , 
-        { 
-          "label" : "Γενικός Δείκτης, εκτός καυσίμων και λιπαντικών αυτοκινήτων" ,
-          "value" : 3.4
+          "label" : "H Label" , 
+          "value" : -5.1387322875705
         }
       ]
     }
   ]
+
 }
