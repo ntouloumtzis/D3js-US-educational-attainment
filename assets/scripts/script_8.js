@@ -13,13 +13,13 @@ nv.addGraph(function() {
       .transitionDuration(350)
       ;
 
-  d3.select('#chart1 svg')
+  d3.select('#chart svg')
       .datum(exampleData())
-      .call(chart1);
+      .call(chart);
 
-  nv.utils.windowResize(chart1.update);
+  nv.utils.windowResize(chart.update);
 
-  return chart1;
+  return chart;
 });
 
 //Each bar represents a single discrete quantity.
