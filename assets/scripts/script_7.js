@@ -16,7 +16,7 @@ d3.json('cumulativeLineData.json', function(data) {
     chart.yAxis
         .tickFormat(d3.format(',.1%'));
 
-    d3.select('#chart svg')
+    d3.select('#chart3 svg')
         .datum(data)
         .call(chart);
 
