@@ -15,11 +15,11 @@ nv.addGraph(function() {
 
   d3.select('#chart1 svg')
       .datum(exampleData())
-      .call(chart);
+      .call(chart1);
 
   nv.utils.windowResize(chart.update);
 
-  return chart;
+  return chart1;
 });
 
 //Each bar represents a single discrete quantity.
