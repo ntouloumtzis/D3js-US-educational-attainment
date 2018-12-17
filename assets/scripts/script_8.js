@@ -17,7 +17,7 @@ nv.addGraph(function() {
       .datum(exampleData())
       .call(chart1);
 
-  nv.utils.windowResize(chart.update);
+  nv.utils.windowResize(chart1.update);
 
   return chart1;
 });
