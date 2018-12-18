@@ -20,7 +20,7 @@ function donutChart() {
     var width,
         height,
         margin = {top: 10, right: 10, bottom: 10, left: 10},
-        colour = d3.scaleOrdinal().range(["#0FA3B1", "#73c3bf", "#a1d8c8", "#cbe0a7", "#f2db84", "#f7af72", "#FF9B42"]), // colour scheme
+        colour = d3.scaleOrdinal().range(["#90afc5", "#336b87", "#2a3132", "#763626", "#258039", "#f5be41", "#cf3721"]), // colour scheme
         variable, // value in data that will dictate proportions on chart
         category, // compare data by
         padAngle, // effectively dictates the gap between slices
@@ -138,7 +138,7 @@ function donutChart() {
 
                 // add tooltip (svg circle element) when mouse enters label or slice
                 selection.on('mouseenter', function (data) {
-
+                    
                     pieChartSVG.append('text')
                         .attr('class', 'toolCircle')
                         .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
@@ -152,11 +152,14 @@ function donutChart() {
                         .style('fill', colour(data.data[category])) // colour based on category mouse is over
                         .style('fill-opacity', 0.35);
 
+                    var message = new SpeechSynthesisUtterance(toolTipHTML(data));
+                         speechSynthesis.speak(message);
                 });
 
                 // remove the tooltip when mouse leaves the slice/label
                 selection.on('mouseout', function () {
                     d3.selectAll('.toolCircle').remove();
+                    speechSynthesis.cancel();
                 });
             }
 
@@ -242,4 +245,5 @@ function donutChart() {
     };
 
     return chart;
+
 }
