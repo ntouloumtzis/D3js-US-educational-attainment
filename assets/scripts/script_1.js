@@ -152,14 +152,14 @@ function donutChart() {
                         .style('fill', colour(data.data[category])) // colour based on category mouse is over
                         .style('fill-opacity', 0.35);
 
-                    var message = new SpeechSynthesisUtterance(toolTipHTML(data));
-                         speechSynthesis.speak(message);
+                    var message = new SpeechSynthesisUtterance(toolTipHTML(data)); // Δημιουργούμε νέο αντικείμενο με τη χρήση της SpeechSynthesis
+                         speechSynthesis.speak(message); // Χρήση της speechSynthesis για ομιλία του μυνήματος μας κάθε φορά που περνάει το ποντίκι απο πάνω
                 });
 
                 // remove the tooltip when mouse leaves the slice/label
                 selection.on('mouseout', function () {
                     d3.selectAll('.toolCircle').remove();
-                    speechSynthesis.cancel();
+                    speechSynthesis.cancel(); // Να ακυρώνεται η ομιλία κάθε φορά που φεύγει το ποντίκι από πάνω
                 });
             }
 
